@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Encuesta</title>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
 </head>
 <body>
-    <h2>Formulario de Encuesta</h2>
-    <form method="post">
-        Nombre: <input type="text" name="nombre" required><br><br>
-        ¿Te gustó el servicio?
-        <select name="respuesta">
-            <option value="Sí">Sí</option>
-            <option value="No">No</option>
-        </select><br><br>
-        <input type="submit" value="Enviar">
+    <h1>Enviar mensaje</h1>
+    <form action="/enviar" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" required></textarea><br><br>
+
+        <button type="submit">Enviar</button>
     </form>
 </body>
 </html>

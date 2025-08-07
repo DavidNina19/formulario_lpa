@@ -39,19 +39,26 @@ class Database:
         self.connect()
         self.crear_tabla_si_no_existe()
         with self.connection.cursor() as cursor:
-            cursor.execute("INSERT INTO encuesta (nombre, respuesta) VALUES (%s, %s)", (nombre, respuesta))
+            cursor.execute("INSERT INTO encuesta (nombre, repuesta) VALUES (%s, %s)", (nombre, respuesta))
         self.connection.commit()
 
 db = Database()
 
-@app.route("/", methods=["GET", "POST"])
-def formulario():
-    if request.method == "POST":
-        nombre = request.form["nombre"]
-        respuesta = request.form["respuesta"]
-        db.guardar_respuesta(nombre, respuesta)
-        return "¡Gracias por tu respuesta!"
-    return render_template("formulario.html")
+@app.route('/')
+def index():
+    return render_template('formulario.html')
+
+@app.route('/enviar', methods=['POST'])
+def enviar():
+    nombre = request.form.get('nombre')
+    mensaje = request.form.get('mensaje')
+    
+    # Puedes hacer lo que quieras con los datos: imprimir, guardar, etc.
+    db.guardar_respuesta(nombre, mensaje)
+    print(f'Nombre: {nombre}')
+    print(f'Mensaje: {mensaje}')
+    
+    return f"<h2>Formulario recibido</h2><p>Nombre: {nombre}</p><p>Mensaje: {mensaje}</p>"
 
 if __name__ == "__main__":
     app.run(debug=True)
